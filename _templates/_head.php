@@ -1,3 +1,6 @@
+<?php 
+// include 'libs/load.php';
+?>
 <head>
 	<script src="assets/js/color-modes.js"></script>
 
@@ -16,6 +19,8 @@
 
 	<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 	
+
+	<!-- loading CSS Dynamicaly  -->
 	<?php if (file_exists($_SERVER['DOCUMENT_ROOT'].'/photogram/assets/dist/css/'.basename($_SERVER['SCRIPT_NAME'],".php").'.css')) {?>
 		<link href="assets/dist/css/<?php echo basename($_SERVER['SCRIPT_NAME'],".php"); ?>.css" rel="stylesheet">
 	<?php

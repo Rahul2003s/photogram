@@ -1,11 +1,5 @@
-<pre>
 <?php
-echo "server";
-print_r($_SERVER);
-echo "post";
-print_r($_POST);
-echo "get";
-print_r($_GET);
-// print_r($_SESSION);
+include 'libs/load.php';
+
+signup("rahuls3", "asdf", "rahulsri073@gmail.com", "9445428114");
 ?>
-</pre>
