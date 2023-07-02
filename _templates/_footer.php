@@ -7,5 +7,7 @@
 				yourself!</p>
 			<p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
 					href="../getting-started/introduction/">getting started guide</a>.</p>
+			<script src="assets/dist/js/sweetalert.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		</div>
 </footer>

@@ -1,4 +1,5 @@
 <?php
+
 $signup=false;
 $error=false;
 if(isset($_POST['email']) and isset($_POST['username']) and isset($_POST['password']) and isset($_POST['phone'])) {
@@ -19,7 +20,12 @@ if ($signup) {
         header("location: login.php");
     } else {
         $signup = false;
-        dialogue("Something went wrong $error", "Signup Failed", "try again");
+		?>
+		<main class="container">
+			<div class="bg-light p-5 rounded mt-3">
+				<h1>Signup Failed</h1>
+				<p class="lead">Something went wrong <?php echo $error; ?></p>
+		<?php
     }
 } ?>
 
