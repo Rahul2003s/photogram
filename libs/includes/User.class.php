@@ -6,32 +6,18 @@ class User
     public static function signup($user, $pass, $email, $phone)
     {
         $conn = Database::getConnection();
-
-        $checkQuery = "SELECT COUNT(*) as count FROM `photogram`.`auth` WHERE `username` = '$user' or `email` = '$email' or `phone` = '$phone';";
-        $result = $conn->query($checkQuery);
-        
-        if ($result->fetch_assoc()['count'] > 0) {
-            // Username already exists
-            
-            return "Already taken. Please choose a different username.";
-        }
-        $options = [
-            'cost' => 12,
-        ];
-        $pass_hash = password_hash($pass, PASSWORD_BCRYPT, $options);
-        $sql = "INSERT INTO `photogram`.`auth` (`username`,`password`,`email`,`phone`,`blocked`,`active`) VALUES('$user','$pass_hash','$email','$phone','0','1');";
-        $error = false;
+        $pass = password_hash($pass, PASSWORD_BCRYPT, $options = ['cost' => 9]);
+        $sql = "INSERT INTO auth (username, pass, email, phone)
+        VALUES ('$user', '$pass', '$email', '$phone')";
 
         if ($conn->query($sql) === true) {
-            $error = false;
+            $result = false;
         } else {
-            if ($conn->errno == 1062) {
-                $error = "already exists.";
-            }else{
-                $error = "not defined";
-            }
+            $result = $conn->error;
         }
-        return $error;
+
+        $conn->close();
+        return $result;
     }
 
     public static function login($user,$pass)

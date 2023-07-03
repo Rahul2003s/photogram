@@ -7,10 +7,10 @@ class Database{
     public static function getConnection()
     {
         if(Database::$conn == null) {
-            $servername = "localhost";
-            $username = "root";
-            $password = "password";
-            $dbname = "photogram";
+            $servername = get_config("db_server");
+            $username = get_config('db_username');
+            $password = get_config('db_password');
+            $dbname = get_config('db_name');
 
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);

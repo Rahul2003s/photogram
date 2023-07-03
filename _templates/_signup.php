@@ -25,6 +25,8 @@ if ($signup) {
 			<div class="bg-light p-5 rounded mt-3">
 				<h1>Signup Failed</h1>
 				<p class="lead">Something went wrong <?php echo $error; ?></p>
+			</div>
+		</main>
 		<?php
     }
 } ?>

@@ -21,7 +21,7 @@
 	
 
 	<!-- loading CSS Dynamicaly  -->
-	<?php if (file_exists($_SERVER['DOCUMENT_ROOT'].'/photogram/assets/dist/css/'.basename($_SERVER['SCRIPT_NAME'],".php").'.css')) {?>
+	<?php if (file_exists($_SERVER['DOCUMENT_ROOT'].'/assets/dist/css/'.basename($_SERVER['SCRIPT_NAME'],".php").'.css')) {?>
 		<link href="assets/dist/css/<?php echo basename($_SERVER['SCRIPT_NAME'],".php"); ?>.css" rel="stylesheet">
 	<?php
 	}?>
