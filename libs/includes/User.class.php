@@ -10,7 +10,7 @@ class User
         ];
         $pass = password_hash($pass, PASSWORD_BCRYPT, $options);
         $conn = Database::getConnection();
-        $sql = "INSERT INTO `auth` (`username`, `password`, `email`, `phone`)
+        $sql = "INSERT INTO `auth` (`username`, `pass`, `email`, `phone`)
         VALUES ('$user', '$pass', '$email', '$phone');";
 
 
@@ -45,8 +45,8 @@ class User
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            if (password_verify($pass,$row['password'])) {
-                return $row;
+            if (password_verify($pass,$row['pass'])) {
+                return $row['username'];
             } else {
                 return -2;
             }
@@ -54,13 +54,18 @@ class User
             return -1;
         }
     }
-    public function __constructer($username)
+    public function __construct($username)
     {
-        $this->conn = Database::getConnection();
-        $this->conn->query();
-        $this->username = $username;
-
         
+        $this->conn = Database::getConnection();
+        $sql = "SELECT `id` FROM `auth` WHERE `username`='$username' OR `id`='$username' OR `email`='$username';";
+        $result = $this->conn->query($sql);
+        if($result->num_rows == 1){
+            $row = $result->fetch_assoc();    
+            $this->id = $row['id'];
+        }else{
+            throw new Exception("Username does'nt exist");
+        }
 
     }
 
@@ -70,28 +75,29 @@ class User
         $property = strtolower(preg_replace('/\B([A-Z])/','_$1',$property));
 
         if ( substr($name,0,3) == "get" ) {
-            return $this->__get($property);
+            return $this->get_data($property);
         }else if( substr($name,0,3) == "set" ){
-            return $this->__set($property,$arguments[0]);
+            return $this->set_data($property,$arguments[0]);
         }
     }
 
-    public function __get($var)
+    public function get_data($var)
     {
         if (!$this->conn) {
             $this->conn = Database::getConnection();
         }
 
         $sql = "SELECT `$var` FROM `users` WHERE `id` = `$this->id`;";
+        echo $this->id;
         $result = $this->conn->query($sql);
-        if ($result->num_rows) {
+        if ($result->num_rows()==1) {
             return $result->fetch_assoc()["var"];
         }else{
             return null;
         }
     }
 
-    public function __set($key,$value)
+    public function set_data($key,$value)
     {
         if (!$this->conn) {
             $this->conn = Database::getConnection();

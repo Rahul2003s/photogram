@@ -13,18 +13,23 @@ if(isset($_GET['logout'])){
 }
 
 if (Session::get("Is_logined")) {
-    $userdata= Session::get("session_user");
-    echo "Welcome back, $userdata[username]";
+    $username= Session::get("session_username");
+    $user=new User($username);
+    echo "Welcome back," . $user->getusername();
 }else{
     printf("No Session found!! trying to login..");
-    $result = User::signin($user, $pass);
-    if($result){
-        echo "Login sucess";
+    $username = User::signin($user, $pass);
+    $user = new User($username);
+    echo " h ";
+    echo "hii ".$user->getusername();
+    if($username){
+        echo "Login sucess".$user->getusername();
         Session::set("Is_logined",true);
-        Session::set("session_user", $result);
+        Session::set("session_username", $username);
     }else{
         echo "login failed";
     }
+    echo "bye";
 }
 
 ?>
