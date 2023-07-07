@@ -78,6 +78,8 @@ class User
             return $this->get_data($property);
         }else if( substr($name,0,3) == "set" ){
             return $this->set_data($property,$arguments[0]);
+        }else {
+            throw new Exception(__CLASS__."::__call() -> $name, function unavailable.");
         }
     }
 
